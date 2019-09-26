@@ -77,6 +77,18 @@ resource "azurerm_network_security_group" "myterraformnsg" {
         source_address_prefix      = "*"
         destination_address_prefix = "*"
     }
+	security_rule {
+        name                       = "Port_8080"
+        priority                   = 330
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "8080"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+    }
+	
     tags = {
         environment = "Terraform Demo"
     }
@@ -142,7 +154,7 @@ resource "azurerm_virtual_machine" "myterraformvm" {
     storage_image_reference {
         publisher = "Canonical"
         offer     = "UbuntuServer"
-        sku       = "16.04-LTS"
+        sku       = "18.04-LTS"
         version   = "latest"
     }
 
